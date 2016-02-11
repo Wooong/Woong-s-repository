@@ -58,15 +58,20 @@ public class DataBase {
 	}
 	
 	//학년을 인자로 넣어주면 그 학년에 해당하는 노드로 이루어진 ArrayList가 나옴
-	public ArrayList getNodelist(int num){
+	public ArrayList getNodelist(int grade){
+		
+		if(grade > 4){
+			System.out.println("학년을 제대로 치세요.");
+			return null;
+		}
 		
 		ArrayList<Node> nodelist = new ArrayList();
-		int grade = 0;
+		int num = 0;
 	
 		for(int i = 0; i<subject.size(); i++){
 		
-			grade =  Integer.parseInt(subject.get(i).getDepth());
-			if(grade == num){
+			num =  Integer.parseInt(subject.get(i).getDepth());
+			if(num == grade){
 				nodelist.add(subject.get(i));
 			}
 		}
