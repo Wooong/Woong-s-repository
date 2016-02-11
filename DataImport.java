@@ -31,8 +31,7 @@ public class DataImport {
          while(true) {
              String line = br.readLine();
              if (line==null) break;
-             System.out.println(line);
-            String[] result = line.split("\t");
+             String[] result = line.split("\t");
              num[i] = result[0];
              div[i] = result[1];
              sub[i] = result[2];
@@ -41,6 +40,7 @@ public class DataImport {
              pre[i] = result[5];
              i++;
              
+             System.out.println(result[0] + "\t" + result[1] + "\t" + result[2] + " \t" + result[3] + "/" + result[4] + "\t" + result[5]);
          }
          br.close();
          } catch (IOException e) { 
@@ -56,17 +56,36 @@ public class DataImport {
 		}
 		// SUBJECT_NUMBER만큼의 노드가 만들어지고 db의 arraylist에 들어감
 
+		
 		// prev node 설정
 		// O(n^2)이라서 조금 더 효율적인 방법을 찾을 필요가 있음
 		for (i = 0; i < SUBJECT_NUMBER; i++) {
+			
+			//선수강과목이 없는 경우
 			if (db.getPrevious(i) == "None") {
 				db.setPrev(i, head);
-			} else {
+			} 		
+			
+			//선수강과목이 있는 경우
+			else {
 				for (int j = 0; j < SUBJECT_NUMBER; j++) {
-					if (db.getName(j) == db.getPrevious(i)) {
-						db.setPrev(i, db.getNode(j));
-					} else {
-						db.setPrev(i, null);
+					
+					//선수강과목이 2개 이상인 경우
+					if(db.getPrevious(i).contains("/")){
+					
+						String[] str = db.getPrevious(i).split("/");		// 문자열을 "/"를 기준으로 앞문자열과 뒷문자열로 나누고
+						
+						//특정 노드가 앞문자열과 같거나 뒷문자열과 같으면 prevNodeList에 추가
+						if (db.getName(j) == str[0] || db.getName(j) == str[1]) {		
+							db.setPrev(i, db.getNode(j));
+						}
+					}
+					
+					//선수강과목이 1개인 경우
+					else{	
+						if (db.getName(j) == db.getPrevious(i)) {
+							db.setPrev(i, db.getNode(j));
+						}
 					}
 				}
 
@@ -76,8 +95,6 @@ public class DataImport {
 	}
 
 	public DataBase read() {
-		System.out.println(sub[10]);
-		
 		return db;
 	}
 }
