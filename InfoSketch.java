@@ -28,6 +28,9 @@ public class InfoSketch extends PApplet {
 		registerdb = data.read();
 		PApplet.main(new String[] { "--bgcolor=#000000", "RegisterInfo.InfoSketch" });
 		
+		//test -> 1학년인 node만 골라서 만든 arraylist의 사이즈 = 15
+		System.out.println(registerdb.getNodelist(1).size());
+		
 	}
 
 }

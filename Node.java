@@ -1,5 +1,7 @@
 package RegisterInfo;
 
+import java.util.ArrayList;
+
 public class Node {
 	private String depth;			//학년
 	private String classification;	//교과구분
@@ -7,9 +9,8 @@ public class Node {
 	private String grade;			//학점
 	private String time;			//시간
 	private String previous;		//선수과목의 이름
-									//이 변수 만든 이유는 이름이랑 선수과목 이름이랑 비교해보기 위함 
-	private Node prev;				//선수과목 node
-	
+									//이 변수 만든 이유는 이름이랑 선수과목 이름이랑 비교해보기 위함 				
+	private ArrayList<Node> prev= new ArrayList<Node>();	//선수과목 node
 	
 	//constructor
 	public Node(){
@@ -58,8 +59,8 @@ public class Node {
 		this.previous = previous; 
 	}
 	
-	public void setPrev(Node Prev){
-		this.prev = prev;
+	public void addPrev(Node Prev){
+		this.prev.add(Prev);
 	}
 	
 	
@@ -88,8 +89,8 @@ public class Node {
 		return previous;
 	}
 	
-	public Node getPrev(){
-		return prev;
+	public Node getPrev(int i){
+		return prev.get(i);
 	}
 	
 }
